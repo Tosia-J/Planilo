@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilo – Twoja Wizja Zasługuje na Solidne Podstawy | Architektura & AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Zmienne CSS dla spójności kolorów i stylu */
+        :root {
+            --dark-green: #0F2F23; /* Głęboka ciemna zieleń */
+            --copper: #B87333;     /* Miedź */
+            --black: #1A1A1A;      /* Czerń dla kontrastu */
+            --warm-gray: #f5f5f5;  /* Ciepła szarość, tło */
+            --light-text: #ffffff;
+            --dark-text: var(--black);
+            --subtle-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--warm-gray);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Ogólne style dla sekcji */
+        section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark-green);
+            margin-bottom: 10px;
+        }
+        
+        /* Styl Podtytułu */
+        .section-title p {
+            font-weight: 300; /* Cienki, elegancki podtytuł */
+            font-size: 1.2rem;
+            color: var(--dark-text);
+        }
+
+        /* Przyciski CTA */
+        .cta-button {
+            background-color: var(--copper);
+            color: var(--light-text);
+            border: none;
+            padding: 15px 35px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            background-color: #a3662c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(184, 115, 51, 0.4);
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            border: 2px solid var(--copper);
+            color: var(--light-text);
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(184, 115, 51, 0.1);
+            color: var(--copper);
+            box-shadow: none;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(15, 47, 35, 0.95); /* Półprzezroczysty dark-green */
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+        }
+
+        .logo-icon {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--copper); /* Kontur domu w kolorze miedzi */
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--copper);
+            border-top: 0;
+        }
+
+        .logo-text {
+            font-weight: 800; /* Czarna typografia */
+            font-size: 24px;
+            color: var(--light-text);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+            transition: color var(--transition-speed) ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--copper);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Tło - Slider/Video */
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Subtelny zielony gradient/półprzezroczystość */
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(15, 47, 35, 0.7), rgba(15, 47, 35, 0.4));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1000px;
+            padding: 0 5%;
+        }
+
+        /* Duży, pogrubiony nagłówek hero */
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--light-text);
+            margin-bottom: 30px;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            font-weight: 300; /* Cienki, elegancki podtytuł */
+            color: var(--warm-gray);
+            margin-bottom: 50px;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* --- Platform View (Mockup) --- */
+        .platform-preview {
+            background-color: var(--dark-green);
+            color: var(--light-text);
+        }
+        
+        /* Mockup Kontener */
+        .platform-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .tools-panel, .ai-panel {
+            width: 250px;
+            background-color: #1a3d2e; /* Nieco jaśniejsza zieleń */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--subtle-shadow);
+            flex-shrink: 0;
+        }
+        
+        .platform-mockup {
+            flex-grow: 1;
+            background-color: #1a3d2e;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .platform-header {
+            background-color: #152a21;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .platform-tabs {
+            display: flex;
+            gap: 15px;
+        }
+
+        .platform-tab {
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .platform-tab.active {
+            background-color: var(--copper);
+            color: var(--black);
+        }
+
+        .platform-content {
+            flex-grow: 1;
+            background-color: #2a5c48; /* Tło obszaru roboczego - średnia zieleń */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floor-plan-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(184, 115, 51, 0.3) 1px, transparent 1px), /* Miedziana siatka */
+                linear-gradient(90deg, rgba(184, 115, 51, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .room-outline {
+            position: absolute;
+            top: 80px;
+            left: 100px;
+            width: 60%;
+            height: 70%;
+            border: 3px solid var(--copper);
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.5s;
+            cursor: move;
+        }
+        
+        /* Panel Narzędzi */
+        .tools-panel h4 {
+            color: var(--copper);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .tool-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tool-item {
+            width: 40px;
+            height: 40px;
+            background-color: #152a21;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--copper);
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .tool-item:hover {
+            background-color: var(--copper);
+            color: var(--dark-green);
+        }
+        
+        /* Wymiary/Parametry */
+        .dimension-inputs label {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        .dimension-inputs input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid var(--copper);
+            background-color: #152a21;
+            color: var(--light-text);
+            border-radius: 4px;
+        }
+
+        /* Panel AI */
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--copper);
+            border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .ai-header h3 {
+            font-size: 1.2rem;
+        }
+
+        .ai-suggestions {
+            list-style: none;
+        }
+
+        .ai-suggestion {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #152a21;
+            border-left: 3px solid var(--copper);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            transition: transform var(--transition-speed);
+        }
+        
+        .ai-suggestion:hover {
+            transform: translateX(5px);
+        }
+        
+        .ai-suggestion i {
+            margin-right: 8px;
+            color: var(--copper);
+        }
+        
+        /* Weryfikacja Profesjonalna (Pasek Parametrów) */
+        .verification-bar {
+            background-color: #152a21;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .verification-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+
+        .verification-item i {
+            color: var(--copper);
+            font-size: 1rem;
+        }
+
+
+        /* --- Problem Solution Section --- */
+        .problem-solution {
+            background-color: var(--warm-gray);
+        }
+
+        .ps-container {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .problem, .solution {
+            flex: 1;
+            background-color: var(--light-text);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--subtle-shadow);
+        }
+
+        .problem h3, .solution h3 {
+            font-size: 2rem;
+            color: var(--dark-green);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .solution h3 {
+            color: var(--copper);
+        }
+
+        .problem-list, .solution-list {
+            list-style: none;
+        }
+
+        .list-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--warm-gray);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .problem-item i {
+            color: #d32f2f; /* Czerwień dla problemu */
+        }
+
+        .solution-item i {
+            color: var(--dark-green);
+            font-size: 1.2rem;
+        }
+        
+        /* --- Features Section --- */
+        .features {
+            background-color: var(--dark-green);
+            color: var(--light-text);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: #1a3d2e;
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background-color: #2a5c48;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 25px;
+            background-color: rgba(184, 115, 51, 0.1);
+            border: 2px solid var(--copper);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--copper);
+            font-size: 30px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--warm-gray);
+            font-weight: 300;
+        }
+        
+        /* --- How It Works Section --- */
+        .how-it-works {
+            background-color: var(--warm-gray);
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Pozioma linia w kolorze miedzi z zielonymi punktami */
+        .steps-container::before {
+            content: "";
+            position: absolute;
+            top: 45px;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background-color: var(--copper);
+            z-index: 1;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .step-icon-wrapper {
+            width: 90px;
+            height: 90px;
+            background-color: var(--dark-green);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--light-text);
+            border: 5px solid var(--copper);
+            box-shadow: 0 0 0 5px var(--warm-gray); /* Efekt punktu */
+        }
+        
+        .step h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+        
+        .step p {
+            font-weight: 400;
+        }
+
+        /* --- Eco Section --- */
+        .eco-section {
+            background-color: var(--dark-green);
+            color: var(--light-text);
+        }
+
+        .eco-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .eco-text {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .eco-text h2 {
+            color: var(--copper);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .eco-text p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .eco-visual {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .eco-image {
+            width: 100%;
+            height: 400px;
+            background-color: #1a3d2e;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--copper);
+            font-size: 5rem;
+            /* Placeholder dla obrazu/wizualizacji ekologicznej */
+            background-image: url('https://images.unsplash.com/photo-1549495168-523c91af6d2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.85;
+        }
+        
+        /* --- Experts Section --- */
+        .experts {
+            background-color: var(--warm-gray);
+        }
+
+        .experts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .expert-card {
+            background-color: var(--light-text);
+            border-radius: 8px;
+            box-shadow: var(--subtle-shadow);
+            overflow: hidden;
+            transition: transform var(--transition-speed);
+        }
+
+        .expert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .expert-image {
+            height: 250px;
+            background-color: var(--dark-green); /* Ciemnozielone tło dla portretu */
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(1.2); /* Efekt profesjonalnego zdjęcia */
+            transition: filter var(--transition-speed);
+        }
+        
+        .expert-card:hover .expert-image {
+             filter: grayscale(0%) brightness(1);
+        }
+
+        .expert-info {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .expert-info h3 {
+            font-size: 1.5rem;
+            color: var(--dark-green);
+            margin-bottom: 5px;
+        }
+
+        .expert-role {
+            font-weight: 600;
+            color: var(--copper); /* Nagłówki miedziane */
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* --- Footer CTA --- */
+        .footer-cta {
+            background-color: var(--black);
+            text-align: center;
+            padding: 80px 5%;
+        }
+
+        .footer-cta h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--light-text);
+            margin-bottom: 25px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--light-text);
+            padding: 50px 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto 30px;
+            gap: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+        }
+
+        .footer-column h3 {
+            color: var(--copper);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column a {
+            color: var(--warm-gray);
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+            transition: color var(--transition-speed);
+        }
+
+        .footer-column a:hover {
+            color: var(--copper);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* --- Responsywność --- */
+        @media (max-width: 1200px) {
+            .platform-container {
+                flex-direction: column;
+            }
+
+            .tools-panel, .ai-panel {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .ps-container, .eco-content {
+                flex-direction: column;
+            }
+
+            .eco-text {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            nav {
+                display: none; /* Ukryj nawigację na mobilnych */
+            }
+
+            .cta-button {
+                padding: 10px 20px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .steps-container::before {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <div class="logo-text">PLANILO</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#platform">Platforma</a></li>
+                <li><a href="#problem-solution">Wyzwania</a></li>
+                <li><a href="#features">Funkcje</a></li>
+                <li><a href="#how-it-works">Jak to działa</a></li>
+                <li><a href="#eco">Ekologia</a></li>
+                <li><a href="#experts">Eksperci</a></li>
+            </ul>
+        </nav>
+        <a href="#beta-cta" class="cta-button">Dołącz do wersji beta</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider" id="hero-slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1596701832968-3e498c871037?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');" data-desc="Minimalistyczny ekologiczny dom"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542382159654-b52b86e8e50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');" data-desc="Linie architektoniczne i szkice"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1588725801967-73a7c6f05928?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');" data-desc="Podgląd projektu 3D"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');" data-desc="Wnętrze z naturalnych materiałów"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');" data-desc="AI analizująca projekt"></div>
+            <div class="slide-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Twoja wizja zasługuje na solidne podstawy.</h1>
+            <p>Dlatego prowadzimy Cię od pierwszego pomysłu aż po gotowy projekt — łącząc kreatywność z wiedzą architektów, konstruktorów i precyzją sztucznej inteligencji.</p>
+            <div class="hero-buttons">
+                <a href="#platform" class="cta-button">Wypróbuj prototyp</a>
+                <a href="#beta-cta" class="cta-button secondary-button">Dołącz do wersji beta</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="platform-preview" id="platform">
+        <div class="section-title">
+            <h2 style="color: var(--light-text);">Projektowanie przyszłości</h2>
+            <p style="color: var(--warm-gray);">Intuicyjny kreator 2D/3D i Asystent AI w jednym miejscu. Projektuj jak profesjonalista.</p>
+        </div>
+        <div class="platform-container">
+            <div class="tools-panel">
+                <h4><i class="fas fa-tools"></i> Narzędzia Projektowe</h4>
+                <div class="tool-category">
+                    <h4>Ściany i Konstrukcje</h4>
+                    <div class="tool-items">
+                        <div class="tool-item"><i class="fas fa-ruler-combined"></i></div> <div class="tool-item"><i class="fas fa-door-open"></i></div>
+                        <div class="tool-item"><i class="fas fa-window-maximize"></i></div>
+                    </div>
+                </div>
+                <div class="tool-category">
+                    <h4>Wyposażenie i Meble</h4>
+                    <div class="tool-items">
+                        <div class="tool-item"><i class="fas fa-couch"></i></div>
+                        <div class="tool-item"><i class="fas fa-bed"></i></div>
+                        <div class="tool-item"><i class="fas fa-sink"></i></div>
+                        <div class="tool-item"><i class="fas fa-toilet"></i></div>
+                    </div>
+                </div>
+                <h4 style="margin-top: 20px;"><i class="fas fa-sliders-h"></i> Parametry Elementu</h4>
+                <div class="dimension-inputs">
+                    <div class="input-group">
+                        <label for="width">Szerokość (m):</label>
+                        <input type="number" id="width" value="4.5" min="0.1" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="height">Wysokość (m):</label>
+                        <input type="number" id="height" value="2.8" min="0.1" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="platform-mockup">
+                <div class="platform-header">
+                    <div class="platform-tabs">
+                        <div class="platform-tab active" data-view="2d">2D (Rzut z góry)</div>
+                        <div class="platform-tab" data-view="3d">3D (Wizualizacja)</div>
+                        <div class="platform-tab" data-view="materials">Materiały</div>
+                    </div>
+                    <div class="platform-actions">
+                        <a href="#" class="cta-button" style="padding: 8px 20px; font-size: 0.9rem;">Zapisz i Waliduj</a>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <div class="floor-plan-grid"></div>
+                    <div class="room-outline">
+                        <div style="position: absolute; top: 10px; left: 10px; width: 100px; height: 80px; background-color: rgba(184, 115, 51, 0.2); border: 1px solid var(--copper);">Kuchnia</div>
+                        <div style="position: absolute; top: 100px; left: 150px; width: 200px; height: 150px; background-color: rgba(184, 115, 51, 0.2); border: 1px solid var(--copper);">Salon</div>
+                    </div>
+                </div>
+                <div class="verification-bar">
+                    <div class="verification-item"><i class="fas fa-gavel"></i> Zgodność Prawna: <span style="color: #4CAF50;">Zgodne</span></div>
+                    <div class="verification-item"><i class="fas fa-user-check"></i> Ergonomia: <span style="color: #FFC107;">85%</span></div>
+                    <div class="verification-item"><i class="fas fa-leaf"></i> Ekologia: <span style="color: #4CAF50;">A+</span></div>
+                </div>
+            </div>
+
+            <div class="ai-panel">
+                <div class="ai-header">
+                    <i class="fas fa-robot"></i> 
+                    <h3>Asystent AI (Ver. 3.1)</h3>
+                </div>
+                <ul class="ai-suggestions">
+                    <li class="ai-suggestion"><i class="fas fa-exclamation-triangle"></i> Błąd Prawny: Ściana za blisko granicy działki.</li>
+                    <li class="ai-suggestion"><i class="fas fa-lightbulb"></i> Ergonomia: Pokój wymaga więcej światła dziennego.</li>
+                    <li class="ai-suggestion"><i class="fas fa-seedling"></i> Ekologia: Sugerowana zmiana materiału ścian na prefabrykaty drewniane.</li>
+                    <li class="ai-suggestion"><i class="fas fa-chart-line"></i> Energia: Zmniejszenie okna na zachód obniży straty ciepła o 5%.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section class="problem-solution" id="problem-solution">
+        <div class="section-title">
+            <h2>Problem → Rozwiązanie</h2>
+            <p>Planilo eliminuje błędy, koszty i stres związany z tradycyjnym procesem projektowym.</p>
+        </div>
+        <div class="ps-container">
+            <div class="problem">
+                <h3><i class="fas fa-exclamation-circle" style="color: #d32f2f;"></i> Problemy Tradycyjnego Projektowania</h3>
+                <ul class="problem-list">
+                    <li class="list-item problem-item"><i class="fas fa-times-circle"></i> Projekty są skomplikowane i generują nieoczekiwane koszty.</li>
+                    <li class="list-item problem-item"><i class="fas fa-times-circle"></i> Trudności ze zrozumieniem przepisów, norm i biurokracji.</li>
+                    <li class="list-item problem-item"><i class="fas fa-times-circle"></i> Brak kontroli nad finalną estetyką, ergonomią i ekologią.</li>
+                </ul>
+            </div>
+            <div class="solution">
+                <h3><i class="fas fa-check-circle" style="color: var(--copper);"></i> Planilo - Rozwiązanie AI</h3>
+                <ul class="solution-list">
+                    <li class="list-item solution-item"><i class="fas fa-robot"></i> Kreator 2D i 3D z AI analizującym błędy w czasie rzeczywistym.</li>
+                    <li class="list-item solution-item"><i class="fas fa-search-dollar"></i> Rekomendacje ekologiczne i energooszczędne, obniżające koszty budowy i eksploatacji.</li>
+                    <li class="list-item solution-item"><i class="fas fa-clipboard-check"></i> Finalna, profesjonalna weryfikacja architekta i konstruktora.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2 style="color: var(--light-text);">Kluczowe Funkcje Planilo</h2>
+            <p style="color: var(--warm-gray);">Technologia, która stawia jakość i ekologię na pierwszym miejscu.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                <h3>AI Weryfikacja w Czasie Rzeczywistym</h3>
+                <p>Nasz asystent AI natychmiast wychwytuje błędy konstrukcyjne i prawne, zanim staną się problemem.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Rekomendacje Ekologiczne i Energooszczędne</h3>
+                <p>Analiza strat ciepła, nasłonecznienia i materiałów, by spełnić najwyższe standardy energetyczne.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-walking"></i></div>
+                <h3>Ergonomia i Poprawki Przestrzenne</h3>
+                <p>Optymalizujemy układ pomieszczeń dla maksymalnego komfortu i funkcjonalności Twojego domu.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Kreator 2D Top-View z Edycją Wymiarów</h3>
+                <p>Łatwe, precyzyjne projektowanie rzutów, z możliwością dynamicznej zmiany wymiarów każdego elementu.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                <h3>Podgląd Materiałów i Prefabrykatów</h3>
+                <p>Wizualizuj i dobieraj materiały konstrukcyjne oraz wykończeniowe w czasie rzeczywistym.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
+                <h3>Finalna Weryfikacja Ekspertów</h3>
+                <p>Architekt i Konstruktor osobiście zatwierdzają projekt, zapewniając jego bezpieczeństwo i zgodność.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-title">
+            <h2>Projektowanie w 3 Prostych Krokach</h2>
+            <p>Od pomysłu do zatwierdzenia — prosto, szybko i bezpiecznie.</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-icon-wrapper"><i class="fas fa-pen-nib"></i></div>
+                <h3>1. Tworzysz lub Edytujesz Projekt</h3>
+                <p>Użyj intuicyjnego kreatora 2D/3D Planilo, aby zaprojektować swój wymarzony dom od podstaw lub zmodyfikować gotowy szablon.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon-wrapper"><i class="fas fa-microchip"></i></div>
+                <h3>2. AI Analizuje Błędy i Proponuje Poprawki</h3>
+                <p>Sztuczna Inteligencja Planilo w czasie rzeczywistym sprawdza zgodność z normami, ergonomię i optymalizację energetyczną.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon-wrapper"><i class="fas fa-certificate"></i></div>
+                <h3>3. Architekt i Konstruktor Zatwierdzają Projekt</h3>
+                <p>Gdy projekt spełnia wszystkie kryteria, nasi eksperci wydają ostateczne zatwierdzenie, dając Ci gwarancję solidnych fundamentów.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="eco-section" id="eco">
+        <div class="eco-content">
+            <div class="eco-text">
+                <h2>Projektuj ekologicznie od samego początku.</h2>
+                <p>W Planilo ekologia nie jest opcją — jest standardem. Nasze algorytmy analizują straty ciepła, optymalizują nasłonecznienie i dobierają materiały, aby Twój dom był nie tylko piękny, ale też maksymalnie energooszczędny i przyjazny dla środowiska.</p>
+                <p>Zbuduj dom inteligentniej i oszczędzaj na rachunkach, zaczynając od fundamentów projektu.</p>
+            </div>
+            <div class="eco-visual">
+                <div class="eco-image">
+                    <i class="fas fa-solar-panel" style="font-size: 8rem; opacity: 0.8;"></i> </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="experts" id="experts">
+        <div class="section-title">
+            <h2>Nasi Eksperci Gwarantują Profesjonalizm</h2>
+            <p>Technologia AI w połączeniu z doświadczeniem najlepszych w branży.</p>
+        </div>
+        <div class="experts-grid">
+            <div class="expert-card">
+                <div class="expert-image" style="background-image: url('https://images.unsplash.com/photo-1557862921-378393e786b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60');"></div>
+                <div class="expert-info">
+                    <h3>Anna Kowalska</h3>
+                    <span class="expert-role">Główny Architekt, Walidacja Estetyki i Przepisów</span>
+                    <p>Ponad 15 lat doświadczenia w architekturze ekologicznej. Jej zadaniem jest zapewnienie zgodności estetyki i przepisów budowlanych.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <div class="expert-image" style="background-image: url('https://images.unsplash.com/photo-1560250085-4b537c0f7793?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60');"></div>
+                <div class="expert-info">
+                    <h3>Piotr Wiśniewski</h3>
+                    <span class="expert-role">Główny Konstruktor, Weryfikacja Wytrzymałości</span>
+                    <p>Specjalista inżynierii budowlanej. Gwarantuje bezpieczeństwo i wytrzymałość konstrukcji zgodnej z Twoim projektem.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <div class="expert-image" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734b584?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60');"></div>
+                <div class="expert-info">
+                    <h3>Magda Zając</h3>
+                    <span class="expert-role">Analityk AI i Ekologii Budownictwa</span>
+                    <p>Łączy technologię AI z wiedzą o zrównoważonym rozwoju, optymalizując każdy projekt pod kątem kosztów i wpływu na środowisko.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-cta" id="beta-cta">
+        <h2>Zbuduj dom inteligentniej. Zacznij projekt już dziś.</h2>
+        <a href="#" class="cta-button" style="font-size: 1.2rem; padding: 18px 40px;">Dołącz do wersji beta</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text" style="color: var(--light-text);">PLANILO</div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--warm-gray);">Architektura, AI i Ekologia na solidnych podstawach.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Szybkie Linki</h3>
+                <ul>
+                    <li><a href="#platform">Platforma</a></li>
+                    <li><a href="#features">Funkcje</a></li>
+                    <li><a href="#eco">Ekologia</a></li>
+                    <li><a href="#experts">Nasz Zespół</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Kontakt</h3>
+                <ul>
+                    <li><a href="#">kontakt@planilo.pl</a></li>
+                    <li><a href="#">+48 123 456 789</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Prawne</h3>
+                <ul>
+                    <li><a href="#">Polityka Prywatności</a></li>
+                    <li><a href="#">Regulamin</a></li>
+                    <li><a href="#">Licencje</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Planilo. Wszelkie prawa zastrzeżone. Projekt strony: AI Developer.
+        </div>
+    </footer>
+    
+    <script>
+        // Funkcjonalność Slidera w sekcji Hero
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Automatyczna zmiana slajdów co 5 sekund
+        setInterval(nextSlide, 5000);
+        
+        // Funkcjonalność zmiany widoków w Mockupie Platformy
+        const tabs = document.querySelectorAll('.platform-tab');
+        const floorPlan = document.querySelector('.floor-plan-grid');
+        const roomOutline = document.querySelector('.room-outline');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const view = tab.getAttribute('data-view');
+                
+                // Prosta symulacja zmiany widoku
+                if (view === '2d') {
+                    roomOutline.style.opacity = 1;
+                    floorPlan.style.opacity = 1;
+                } else if (view === '3d') {
+                    roomOutline.style.opacity = 0;
+                    floorPlan.style.opacity = 0;
+                    // W rzeczywistości tutaj byłaby ładowana wizualizacja 3D (np. Canvas/WebGL)
+                } else if (view === 'materials') {
+                    roomOutline.style.opacity = 0.5;
+                    floorPlan.style.opacity = 0;
+                    // W rzeczywistości tutaj ładowane byłyby opcje materiałów
+                }
+            });
+        });
+    </script>
+</body>
+</html>
